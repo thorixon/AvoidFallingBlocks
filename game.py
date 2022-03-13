@@ -2,7 +2,7 @@ import random, os, time, threading
 
 
 class Map:
-    def __init__(self, height = 12, width = 7):
+    def __init__(self, height = 8, width = 7):
         self.height = height
         self.width = width
         self.player_position = int(self.width/2)
@@ -50,8 +50,8 @@ class Map:
             row_string += "|"
             print(row_string.center(100))
 
-class Game:
 
+class Game:
     def __init__(self):
         self.game_map = Map()
         self.score = 0
@@ -69,7 +69,6 @@ class Game:
         os.system(command)
 
     def player_controls(self):
-
         while not self.stop_event.is_set():
             direction = input()
             if direction == "a":
@@ -95,6 +94,7 @@ class Game:
         cond = True
         print("Avoid the falling blocks!\n"
               "Type 'a' to go left, type 'd' to go right.\n"
+              "The game works best when played in terminal.\n"
               "Type anything to start!".center(100))
         input()
         player_thread = threading.Thread(target=self.player_controls)
@@ -115,7 +115,7 @@ class Game:
             elif self.score > 25:
                 cond = self.next_turn(0.7, 0, 2)
             else:
-                cond = self.next_turn(0.7, 0, 2)
+                cond = self.next_turn(0.7, 0, 1)
 
         print(f"Your result is {self.score}".center(100))
         self.stop_event.set()
